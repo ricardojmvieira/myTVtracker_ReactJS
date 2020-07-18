@@ -16,9 +16,11 @@ export default class NavbarComponent extends React.Component {
                             <Nav.Link as={NavLink} exact to="/"><h2>myTVtracker</h2></Nav.Link>
                         </Nav>
                         <Nav>
+                            {user ? '' : <Nav.Link as={NavLink} to="/about">About</Nav.Link>}
                             {user ? '' : <Nav.Link as={NavLink} to="/register">Registo</Nav.Link>}
                             {user ?
                                 <h4><NavDropdown title={user.username} alignRight>
+                                    <NavDropdown.Item as={NavLink} to="/about">About</NavDropdown.Item>
                                     <NavDropdown.Item onClick={() => logout()}>Logout</NavDropdown.Item>
                                 </NavDropdown></h4> :
                                 <Nav.Link as={NavLink} to="/login">Login</Nav.Link>

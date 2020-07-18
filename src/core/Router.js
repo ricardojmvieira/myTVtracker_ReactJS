@@ -9,6 +9,7 @@ import roles from "../configs/roles";
 import LoginPage from "../pages/auth/Login";
 import RegisterPage from "../pages/auth/Register";
 import Home from '../pages/home/Home';
+import About from '../pages/about/About';
 import TvshowListPage from '../pages/tvshow/ListTvshow';
 import TvshowDetailsPage from '../pages/tvshow/DetailsTvshow';
 import MyTvShowListPage from '../pages/mytvshow/ListMytvshow';
@@ -37,6 +38,7 @@ export default class RouterComponent extends React.Component {
         <Switch>
           <Route exact path="/register" component={RegisterPage} />
           <Route exact path="/login" component={LoginPage} />
+          <Route exact path="/about" component={About} />
           <Route exact path="/" component={Home} />
         </Switch>
       </Router>
