@@ -1,7 +1,11 @@
 import tvshowService from "./tvshow.js";
-import authService from "./auth.js";
+import userService from "./user.js";
+import mytvshowService from "./mytvshow.js";
+import genreService from "./genre.js";
 //dicionario para os serviços
 export default {
     tvshow: tvshowService,
-    auth: authService,
+    user: userService,
+    mytvshow: mytvshowService,
+    genre: genreService,
 };

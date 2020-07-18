@@ -1,22 +1,16 @@
 import React from 'react';
-import logo from '../../assets/logo.svg';
+import tvshows from '../../assets/tv2.png';
 import './Home.css';
 
 export default class App extends React.Component {
-  render () {
+  render() {
     return (
       <div className="App">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>Edit <code>src/App.js</code> and save to reload.</p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
+          <h1>myTVtracker</h1>
+          <img src={tvshows} className="App-logo" alt="logo" />
+          <p>Descobre novas Series.</p>
+          <p>Regista o progresso das tuas Series.</p>
         </header>
       </div>
     );

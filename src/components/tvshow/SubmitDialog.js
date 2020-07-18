@@ -1,10 +1,10 @@
 import React from 'react';
 import { Modal, Button, Form } from 'react-bootstrap';
-import tvshowService from '../../services/tvshow';
+import services from '../../services';
 
 export default class SubmitDialogComponent extends React.Component {
   toEdit = false;
-
+  genres = false;
   constructor(props) {
     super(props);
     this.toEdit = props.tvshow !== undefined;
@@ -17,19 +17,34 @@ export default class SubmitDialogComponent extends React.Component {
       : {
         nameTVshow: '',
         ranking: 0,
-        genre: '',
+        genre: [],
         description: '',
+        genres: [],
       };
+  }
+
+  componentDidMount() {
+    services.genre
+      .getAll()
+      .then(res => {
+        this.setState({
+          genres: res
+        })
+      })
+  }
+
+  handleChange(selectedOption) {
+    this.setState({ selectedOption });
   }
 
   handleSubmit(evt) {
     evt.preventDefault();//prevenir que o formulario submeta por defeito o serviço na web
     if (this.toEdit) {
-      tvshowService
+      services.tvshow
         .update(this.props.tvshow._id, this.state)
         .then(() => this.props.submited(this.state));
     } else {
-      tvshowService
+      services.tvshow
         .create(this.state)
         .then(tvshowId => this.props.submited({ ...this.state, _id: tvshowId }));
     }
@@ -42,8 +57,7 @@ export default class SubmitDialogComponent extends React.Component {
 
   render() {
     const { show } = this.props;
-    const { nameTVshow, ranking, genre, description } = this.state;
-
+    const { nameTVshow, ranking, description, genre } = this.state;
     return (
       <Modal show={show} onHide={this.handleCancel}>
         <Modal.Header>
@@ -68,13 +82,27 @@ export default class SubmitDialogComponent extends React.Component {
               />
             </Form.Group>
 
-            <Form.Group>
-              <Form.Label>Gênero</Form.Label>
-              <Form.Control
-                value={genre}
-                onChange={evt => this.setState({ genre: evt.target.value })}
-              />
-            </Form.Group>
+            {this.toEdit ?
+              <Form.Group>
+                <Form.Label>Gênero</Form.Label>
+                <Form.Control
+                  value={genre}
+                  onChange={evt => this.setState({ genre: evt.target.value })}
+                />
+              </Form.Group> :
+              <Form.Group>
+                <Form.Label>Gênero</Form.Label>
+                <Form.Control
+                  as="select"
+                  value={genre}
+                  onChange={evt => this.setState({ genre: evt.target.value })}
+                >
+                  {this.state.genres.map(g =>
+                    <option key={g._id} value={g.nameGenre}>{g.nameGenre}</option>
+                  )};
+                </Form.Control>
+              </Form.Group>
+            }
 
             <Form.Group>
               <Form.Label>Descrição</Form.Label>
@@ -84,7 +112,6 @@ export default class SubmitDialogComponent extends React.Component {
                   this.setState({ description: evt.target.value })}
               />
             </Form.Group>
-
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={() => this.handleCancel()}>

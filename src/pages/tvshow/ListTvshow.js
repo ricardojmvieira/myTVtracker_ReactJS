@@ -1,8 +1,8 @@
 import React from 'react';
 import { Container, Button, Table, Alert } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faInfo, faPlus, faRecycle } from '@fortawesome/free-solid-svg-icons';
-import tvshowService from "../../services/tvshow";
+import { faInfo, faPlus, faPlusCircle } from '@fortawesome/free-solid-svg-icons';
+import services from "../../services";
 import SubmitDialogComponent from '../../components/tvshow/SubmitDialog';
 import './Tvshow.css';
 
@@ -23,44 +23,37 @@ export default class TvShowListPage extends React.Component {
 
     //pedido ao servidor para a lista
     getList() {
-        tvshowService
+        services.tvshow
             .getAll()
-            .then(value => this.setState({ tvshows: value }))
-            .catch(err => this.setState({ error: err }));
+            .then((value) => this.setState({ tvshows: value }))
+            .catch((err) => this.setState({ error: err }));
     }
 
-    //limpa a lista
-    resetList() {
-        tvshowService.reset().then(() => this.getList());
+    addToMyTvshows(tvshowId) {
+        services.mytvshow
+            .create(tvshowId)
+            .catch((err) => this.setState({ error: err }));
     }
 
-    //{} valores dinamicos
-    //key serve para indentificar cada um das linhas para fazer alterações ou eliminações 
-    //this.props.history.push força a ir para uma nova rota
     render() {
         const { tvshows, error, toCreate } = this.state;
+        let currentUser = sessionStorage.getItem('user');
+        let role = JSON.parse(currentUser).role;
         return (
-            <Container>
-                {error !== undefined &&
-                    <Alert variant="danger">
-                        {error}
-                    </Alert>}
-
+            <Container className="cor">
+                {error !== undefined && <Alert variant="danger"> {error} </Alert>}
+                <br></br>
+                <h2>Series</h2>
                 <div className="buttons-container">
-                    <Button
+                    {role === 1 && <Button
                         variant="outline-primary"
                         style={{ alignSelf: 'flex-start' }}
                         onClick={() => this.setState({ toCreate: true })}
                     >
                         <FontAwesomeIcon icon={faPlus} />&nbsp;Adicionar nova Serie
-                    </Button>
-                    <Button
-                        variant="outline-dark"
-                        style={{ alignSelf: 'flex-end' }}
-                        onClick={() => this.resetList()}
-                    >
-                        <FontAwesomeIcon icon={faRecycle} />&nbsp;Reset lista
-                    </Button>
+                    </Button>}
+
+                    {/*<SearchFormComponent search={(text) => this.getList(text)} />*/}
                 </div>
 
                 <SubmitDialogComponent
@@ -69,6 +62,7 @@ export default class TvShowListPage extends React.Component {
                     submited={createdTvshow =>
                         this.setState({ tvshows: [...tvshows, createdTvshow], toCreate: false })}
                 />
+
                 <Table responsive>
                     <thead>
                         <tr>
@@ -85,12 +79,14 @@ export default class TvShowListPage extends React.Component {
                                 <td>{tvshow.ranking}</td>
                                 <td>{tvshow.genre}</td>
                                 <td>
+                                    {role === 2 && <Button variant="warning" onClick={() => this.addToMyTvshows(tvshow._id)}>
+                                        <FontAwesomeIcon icon={faPlusCircle} />&nbsp;Adicionar à minha lista
+                                    </Button>}
                                     <Button
                                         variant="outline-primary"
                                         onClick={() =>
-                                            this.props.history.push(`/tvshow/details/${tvshow._id}`)}
-                                    >
-                                        <FontAwesomeIcon icon={faInfo} />
+                                            this.props.history.push(`/tvshow/details/${tvshow._id}`)}>
+                                        <FontAwesomeIcon icon={faInfo} />&nbsp;Detalhes
                                     </Button>
                                 </td>
                             </tr>

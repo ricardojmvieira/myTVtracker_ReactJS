@@ -1,6 +1,8 @@
-#auth-board{
-    align-items: center;
+.auth-header{
+  background-color: #f7f7f7;
+  align-items: center;
     justify-content: center;
     display: flex;
     flex-direction: column;
-  }
+    min-height: 90vh;
+}

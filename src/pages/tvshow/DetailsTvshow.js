@@ -1,10 +1,11 @@
 import React from 'react';
-import { Container, Button, Col, Row, Jumbotron, Badge, Spinner, Alert } from 'react-bootstrap';
+import { Container, Button, Col, Row, Badge, Spinner, Alert } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import tvshowService from '../../services/tvshow';
 import RemoveDialogComponent from '../../components/tvshow/RemoveDialog';
 import SubmitDialogComponent from '../../components/tvshow/SubmitDialog';
+import './Tvshow.css';
 
 export default class TvshowDetailsPage extends React.Component {
     constructor(props) {
@@ -28,9 +29,11 @@ export default class TvshowDetailsPage extends React.Component {
 
     render() {
         const { tvshow, error, toRemove, toUpdate } = this.state;
+        let currentUser = sessionStorage.getItem('user');
+        let role = JSON.parse(currentUser).role;
 
         return (
-            <Container>
+            <Container className="corDetails">
                 <Button
                     variant="outline-primary"
                     style={{ margin: '10px 0' }}
@@ -44,43 +47,43 @@ export default class TvshowDetailsPage extends React.Component {
                     </Alert>}
                 {tvshow !== undefined
                     ? <div>
-                        <Jumbotron>
+                        <jumbotron >
                             <h1>{tvshow.nameTVshow}</h1>
-                            <h5>{tvshow._id}</h5>
                             <Row>
                                 <Col xs={4} md={3} lg={2}>
-                                    <Badge variant="secondary">Ranking</Badge>
+                                    <Badge variant="info">Ranking:</Badge>
                                 </Col>
-                                <Col xs={8} md={9} lg={10}>{tvshow.ranking}</Col>
+                                <Col xs={5} md={6} lg={5}>{tvshow.ranking}</Col>
                             </Row>
                             <Row>
                                 <Col xs={4} md={3} lg={2}>
-                                    <Badge variant="secondary">Gênero</Badge>
+                                    <Badge variant="info">Gênero:</Badge>
                                 </Col>
                                 <Col xs={8} md={9} lg={10}>{tvshow.genre}</Col>
                             </Row>
                             <Row>
                                 <Col xs={4} md={3} lg={2}>
-                                    <Badge variant="secondary">Descrição</Badge>
+                                    <Badge variant="info">Descrição:</Badge>
                                 </Col>
+
+                            </Row>
+                            <Row>
                                 <Col xs={8} md={9} lg={10}>{tvshow.description}</Col>
                             </Row>
                             <br />
-                            <p>
-                                <Button
-                                    variant="dark"
-                                    onClick={() => this.setState({ toUpdate: true })}
-                                >
-                                    Atualizar
-                            </Button>&nbsp;
-                            <Button
-                                    variant="danger"
-                                    onClick={() => this.setState({ toRemove: true })}
-                                >
-                                    Remover
-                            </Button>
-                            </p>
-                        </Jumbotron>
+                            {role === 1 && <Button
+                                variant="dark"
+                                onClick={() => this.setState({ toUpdate: true })}
+                            >
+                                Atualizar
+                            </Button>}&nbsp;
+                            {role === 1 && <Button
+                                variant="danger"
+                                onClick={() => this.setState({ toRemove: true })}
+                            >
+                                Remover
+                            </Button>}
+                        </jumbotron>
 
                         <RemoveDialogComponent
                             tvshowId={tvshow._id}
@@ -101,6 +104,7 @@ export default class TvshowDetailsPage extends React.Component {
                         <span className="sr-only">Loading...</span>
                     </Spinner>
                 }
+                <br />
             </Container>
         );
     }

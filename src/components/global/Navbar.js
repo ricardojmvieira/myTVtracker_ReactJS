@@ -4,21 +4,23 @@ import { Navbar, Nav, NavDropdown, Container } from "react-bootstrap";
 import AuthContext from "../../configs/authContext";
 
 export default class NavbarComponent extends React.Component {
-    static contextType = AuthContext; render() {
+    static contextType = AuthContext;
+
+    render() {
         const { user, logout } = this.context;
         return (
-            <Navbar bg="dark" variant="dark" expand="lg">
+            <Navbar bg="light" variant="light" sticky="top">
                 <Container>
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="mr-auto">
-                            <Nav.Link as={NavLink} exact to="/">Home</Nav.Link>
-                            {user && <Nav.Link as={NavLink} to="/tvshow/list">Series de TV</Nav.Link>}
+                            <Nav.Link as={NavLink} exact to="/"><h2>myTVtracker</h2></Nav.Link>
                         </Nav>
                         <Nav>
+                            {user ? '' : <Nav.Link as={NavLink} to="/register">Registo</Nav.Link>}
                             {user ?
-                                <NavDropdown title={user.username} alignRight>
+                                <h4><NavDropdown title={user.username} alignRight>
                                     <NavDropdown.Item onClick={() => logout()}>Logout</NavDropdown.Item>
-                                </NavDropdown> :
+                                </NavDropdown></h4> :
                                 <Nav.Link as={NavLink} to="/login">Login</Nav.Link>
                             }
                         </Nav>

@@ -25,9 +25,7 @@ export default class RemoveDialogComponent extends React.Component {
           <Modal.Title>Remover Serie</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          Se continuar com este procidimento irá eliminar esta serie do sistema!
-          <br />
-          Tem a certeza?
+          Tem a certeza que pretende eliminar esta serie?
           <FontAwesomeIcon
             style={{ marginLeft: 10 }}
             onClick={() => this.setState({ sure: !sure })}
