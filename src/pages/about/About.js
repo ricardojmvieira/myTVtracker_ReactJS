@@ -13,7 +13,7 @@ export default class App extends React.Component {
           <p>Tecnologias de Internet II</p>
           <p>Ano Letivo 2019/2020</p>
           <br />
-          <p>nodejs reactjs Application</p>
+          <p>MERN Stack Application</p>
           <a href="https://github.com/ricvigh/myTVtracker_NodeJS">https://github.com/ricvigh/myTVtracker_NodeJS</a>
           <a href="https://github.com/ricvigh/myTVtracker_ReactJS">https://github.com/ricvigh/myTVtracker_ReactJS</a>
         </header>

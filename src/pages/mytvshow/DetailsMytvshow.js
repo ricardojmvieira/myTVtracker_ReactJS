@@ -42,36 +42,34 @@ export default class MytvshowsDetailsPage extends React.Component {
                     </Alert>}
                 {mytvshow !== undefined
                     ? <div>
-                        <jumbotron>
-                            <h5>{mytvshow.tvshowId}</h5>
-                            <Row>
-                                <Col xs={4} md={3} lg={2}>
-                                    <Badge variant="info">Temporada</Badge>
-                                </Col>
-                                <Col xs={8} md={9} lg={10}>{mytvshow.season}</Col>
-                            </Row>
-                            <Row>
-                                <Col xs={4} md={3} lg={2}>
-                                    <Badge variant="info">Episodio</Badge>
-                                </Col>
-                                <Col xs={8} md={9} lg={10}>{mytvshow.episode}</Col>
-                            </Row>
-                            <Row>
-                                <Col xs={4} md={3} lg={2}>
-                                    <Badge variant="info">Estado</Badge>
-                                </Col>
-                                <Col xs={8} md={9} lg={10}>{mytvshow.state}</Col>
-                            </Row>
-                            <br />
-                            <p>
-                                <Button
-                                    variant="dark"
-                                    onClick={() => this.setState({ toUpdate: true })}
-                                >
-                                    Atualizar
-                            </Button>&nbsp;
-                            </p>
-                        </jumbotron>
+                        <h5>{mytvshow.nameTVshow}</h5>
+                        <Row>
+                            <Col xs={4} md={3} lg={2}>
+                                <Badge variant="info">Temporada</Badge>
+                            </Col>
+                            <Col xs={8} md={9} lg={10}>{mytvshow.season}</Col>
+                        </Row>
+                        <Row>
+                            <Col xs={4} md={3} lg={2}>
+                                <Badge variant="info">Episodio</Badge>
+                            </Col>
+                            <Col xs={8} md={9} lg={10}>{mytvshow.episode}</Col>
+                        </Row>
+                        <Row>
+                            <Col xs={4} md={3} lg={2}>
+                                <Badge variant="info">Estado</Badge>
+                            </Col>
+                            <Col xs={8} md={9} lg={10}>{mytvshow.state}</Col>
+                        </Row>
+                        <br />
+                        <p>
+                            <Button
+                                variant="dark"
+                                onClick={() => this.setState({ toUpdate: true })}
+                            >
+                                Atualizar
+                        </Button>&nbsp;
+                        </p>
 
                         <SubmitDialogComponent
                             mytvshow={mytvshow}

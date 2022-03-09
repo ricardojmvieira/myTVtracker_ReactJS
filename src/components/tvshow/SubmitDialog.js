@@ -16,7 +16,7 @@ export default class SubmitDialogComponent extends React.Component {
       ? this.props.tvshow
       : {
         nameTVshow: '',
-        ranking: 0,
+        ranking: 1,
         genre: [],
         description: '',
         genres: [],
@@ -77,6 +77,9 @@ export default class SubmitDialogComponent extends React.Component {
               <Form.Label>Ranking</Form.Label>
               <Form.Control
                 type="number"
+                min="0.1"
+                max="10.0"
+                step="0.1"
                 value={ranking}
                 onChange={evt => this.setState({ ranking: evt.target.value })}
               />
@@ -95,6 +98,7 @@ export default class SubmitDialogComponent extends React.Component {
                 <Form.Control
                   as="select"
                   value={genre}
+                  multiple={false}
                   onChange={evt => this.setState({ genre: evt.target.value })}
                 >
                   {this.state.genres.map(g =>

@@ -12,7 +12,7 @@ export default class RegisterPage extends React.Component {
         evt.preventDefault();
         services.user.register(this.state).then(() => {
             this.props.history.push("/login");
-        });
+        }).catch((err) => { console.log(err) });
     }
 
     render() {

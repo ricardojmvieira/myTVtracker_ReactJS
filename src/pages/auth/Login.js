@@ -9,7 +9,7 @@ export default class LoginPage extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = { username: "Administrador", password: "123qweASD" };
+        this.state = { username: "user", password: "User1234" };
     }
 
     handleSubmit(evt) {
@@ -17,7 +17,7 @@ export default class LoginPage extends React.Component {
         services.user.login(this.state).then((data) => {
             this.context.login({ username: this.state.username, ...data });
             this.props.history.push("/");
-        }).catch((err) => { });
+        }).catch((err) => { console.log(err) });
     }
 
     render() {

@@ -29,12 +29,13 @@ export default class TvShowListPage extends React.Component {
             .catch((err) => this.setState({ error: err }));
     }
 
-    addToMyTvshows(tvshowId) {
+    //recebe o tvshowId e o nameTVshow e envia um novo pedido para criar um novo objeto na lista dos tvshow visualizados
+    addToMyTvshows(tvshowId, nameTVshow) {
         services.mytvshow
-            .create(tvshowId)
+            .create(tvshowId, {nameTVshow})
             .catch((err) => this.setState({ error: err }));
     }
-
+    
     render() {
         const { tvshows, error, toCreate } = this.state;
         let currentUser = sessionStorage.getItem('user');
@@ -52,21 +53,19 @@ export default class TvShowListPage extends React.Component {
                     >
                         <FontAwesomeIcon icon={faPlus} />&nbsp;Adicionar nova Serie
                     </Button>}
-
-                    {/*<SearchFormComponent search={(text) => this.getList(text)} />*/}
                 </div>
 
-                <SubmitDialogComponent
+                {role === 1 && <SubmitDialogComponent
                     show={toCreate}
                     handleClose={() => this.setState({ toCreate: false })}
                     submited={createdTvshow =>
                         this.setState({ tvshows: [...tvshows, createdTvshow], toCreate: false })}
-                />
+                />}
 
                 <Table responsive>
                     <thead>
                         <tr>
-                            <th>Nome do Serie</th>
+                            <th>Nome da Serie</th>
                             <th>Ranking</th>
                             <th>Gênero</th>
                             <th />
@@ -79,7 +78,7 @@ export default class TvShowListPage extends React.Component {
                                 <td>{tvshow.ranking}</td>
                                 <td>{tvshow.genre}</td>
                                 <td>
-                                    {role === 2 && <Button variant="warning" onClick={() => this.addToMyTvshows(tvshow._id)}>
+                                    {role === 2 && <Button variant="warning" onClick={() => this.addToMyTvshows(tvshow._id, tvshow.nameTVshow)}>
                                         <FontAwesomeIcon icon={faPlusCircle} />&nbsp;Adicionar à minha lista
                                     </Button>}
                                     <Button

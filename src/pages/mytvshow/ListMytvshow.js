@@ -30,7 +30,7 @@ export default class MyTvShowsListPage extends React.Component {
     removeFromMyTvshows(tvshowId) {
         services.mytvshow
             .remove(tvshowId)
-            .then(() => this.setState((state) => ({ mytvshows: state.mytvshows.filter((b) => b._id !== tvshowId) })))
+            .then(this.getList())
             .catch((err) => this.setState({ error: err }));
     }
 
@@ -45,31 +45,28 @@ export default class MyTvShowsListPage extends React.Component {
 
                 <Table responsive>
                     <thead>
-                        <div>
-                            <tr>
-                                <React.Fragment>
-                                    <th width="20%">ID da serie</th>
-                                    <th width="10%">Temporada</th>
-                                    <th width="10%">Episodio</th>
-                                    <th width="15%">Estado</th>
-                                    <th width="30%" />
-                                </React.Fragment>
-                            </tr>
-                        </div>
+                        <tr>
+                            <React.Fragment>
+                                <th width="20%">Nome da serie</th>
+                                <th width="10%">Temporada</th>
+                                <th width="10%">Episodio</th>
+                                <th width="15%">Estado</th>
+                                <th width="30%" />
+                            </React.Fragment>
+                        </tr>
                     </thead>
-                    <tbody>
                         {mytvshows.map((mytvshow, index) => (
-                            <div width="100" key={`mytvshow${index}`}>
+                             <tbody width="100" key={`mytvshow${index}`}>
                                 {mytvshow.tvshows.map((tvshows, i) => (
                                     <tr key={i}>
-                                        <td width="20%">{tvshows.tvshowId}</td>
+                                        <td width="20%">{tvshows.nameTVshow}</td>
                                         <td width="10%">{tvshows.season}</td>
                                         <td width="10%">{tvshows.episode}</td>
                                         <td width="15%">{tvshows.state}</td>
                                         <React.Fragment>
                                             <td width="30%">
                                                 {<Button variant="outline-danger" onClick={() => this.removeFromMyTvshows(tvshows.tvshowId)}>
-                                                    <FontAwesomeIcon icon={faMinusCircle} />&nbsp;Remove da lista
+                                                    <FontAwesomeIcon icon={faMinusCircle} />&nbsp;Remover da lista
                                                 </Button>}
 
                                                 {<Button
@@ -82,9 +79,9 @@ export default class MyTvShowsListPage extends React.Component {
                                         </React.Fragment>
                                     </tr>
                                 ))}
-                            </div>
+                            </tbody>
                         ))}
-                    </tbody>
+                    
                 </Table>
             </Container>
         )

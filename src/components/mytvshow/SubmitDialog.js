@@ -38,7 +38,7 @@ export default class SubmitDialogComponent extends React.Component {
     return (
       <Modal show={show} onHide={this.handleCancel}>
         <Modal.Header>
-          <Modal.Title>Editar Serie de TV</Modal.Title>
+          <Modal.Title>Editar Serie de TV{season}</Modal.Title>
         </Modal.Header>
         <Form onSubmit={evt => this.handleSubmit(evt)}>
           <Modal.Body>

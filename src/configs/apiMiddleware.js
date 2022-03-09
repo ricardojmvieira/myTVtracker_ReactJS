@@ -13,7 +13,6 @@ export const apiRequest = (method, route, params) => {
             },
             ...(params && params.body && { body: JSON.stringify(params.body) }),//abrir pedidos
         })
-
             .then((res) => parseResponse(res))//esperar resposta faz parsing para json
             .then((data) => resolve(data))//obj e damos resolve 
             .catch((err) => {
