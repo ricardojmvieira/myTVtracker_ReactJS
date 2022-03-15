@@ -7,10 +7,10 @@ export default class App extends React.Component {
       <div className="App">
         <header className="App-header">
           <h1>Autor</h1>
-          <p>Ricardo Vieira Nº20077</p>
-          <p>IPT-Escola Superior de Tecnologia de Tomar</p>
+          <p>Ricardo Vieira</p>
+          <p>Projeto para a UC de Tecnologias de Internet II</p>
           <p>Engenharia Informática</p>
-          <p>Tecnologias de Internet II</p>
+          <p>IPT-Escola Superior de Tecnologia de Tomar</p>
           <p>Ano Letivo 2019/2020</p>
           <br />
           <p>MERN Stack Application</p>
